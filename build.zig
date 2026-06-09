@@ -3,16 +3,15 @@ const std = @import("std");
 pub fn build(b: *std.Build) void {
 
     const target = b.standardTargetOptions(.{});
-    const optimize = b.standardOptimizeOption(.{
-        .preferred_optimize_mode = .Debug
-    });
+    const optimize = b.standardOptimizeOption(.{});
 
     const exe = b.addExecutable(.{
         .name = "math_interp",
         .root_module = b.createModule(.{
             .root_source_file = b.path("src/main.zig"),
             .optimize = optimize,
-            .target = target
+            .target = target,
+            .strip = true  
         })
     });
 
@@ -20,7 +19,9 @@ pub fn build(b: *std.Build) void {
         .root_module = b.createModule(
             .{
                 .root_source_file = b.path("src/tests.zig"),
-                .target = target
+                .target = target,
+                .strip = true  
+                
             }
         )
     });
